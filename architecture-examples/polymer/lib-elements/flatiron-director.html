@@ -3,11 +3,11 @@
 	<script>
 		var private_router;
 		Polymer.register(this, {
-			ready: function() {
-				this.router.on(/(\w*)/, function(route) {
+			ready: function () {
+				this.router.on(/(\w*)/, function (route) {
 					this.route = route;
 				}.bind(this));
-				this.asyncMethod(function() {
+				this.asyncMethod(function () {
 					var initialRoute = this.router.getRoute(0);
 					this.route = initialRoute || '';
 				});
@@ -19,7 +19,7 @@
 				}
 				return private_router;
 			},
-			routeChanged: function() {
+			routeChanged: function () {
 				this.fire('route', this.route);
 			}
 		});

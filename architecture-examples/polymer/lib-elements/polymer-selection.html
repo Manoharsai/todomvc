@@ -21,34 +21,35 @@ license that can be found in the LICENSE file.
 	<script>
 		Polymer.register(this, {
 			multi: false,
-			ready: function() {
+			ready: function () {
 				this.clear();
 			},
-			clear: function() {
+			clear: function () {
 				this.selection = [];
 			},
-			getSelection: function() {
+			getSelection: function () {
 				return this.multi ? this.selection : this.selection[0];
 			},
-			isSelected: function(inItem) {
+			isSelected: function (inItem) {
 				return this.selection.indexOf(inItem) >= 0;
 			},
-			setItemSelected: function(inItem, inIsSelected) {
+			setItemSelected: function (inItem, inIsSelected) {
+				var i;
 				if (inItem) {
 					if (inIsSelected) {
 						this.selection.push(inItem);
 					} else {
-						var i = this.selection.indexOf(inItem);
+						i = this.selection.indexOf(inItem);
 						if (i >= 0) {
 							this.selection.splice(i, 1);
 						}
 					}
 					// TODO(sjmiles): consider replacing with summary
 					// notifications (asynchronous job)
-					this.asend("select", {isSelected: inIsSelected, item: inItem});
+					this.asend("select", { isSelected: inIsSelected, item: inItem });
 				}
 			},
-			select: function(inItem) {
+			select: function (inItem) {
 				if (this.multi) {
 					this.toggle(inItem);
 				} else if (this.getSelection() !== inItem) {
@@ -56,7 +57,7 @@ license that can be found in the LICENSE file.
 					this.setItemSelected(inItem, true);
 				}
 			},
-			toggle: function(inItem) {
+			toggle: function (inItem) {
 				this.setItemSelected(inItem, !this.isSelected(inItem));
 			}
 		});

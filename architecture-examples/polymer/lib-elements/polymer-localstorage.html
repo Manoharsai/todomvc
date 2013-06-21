@@ -21,13 +21,13 @@ license that can be found in the LICENSE file.
 	<script>
 		Polymer.register(this, {
 			isJson: true,
-			ready: function() {
+			ready: function () {
 				this.load();
 			},
-			valueChanged: function() {
+			valueChanged: function () {
 				this.save();
 			},
-			load: function() {
+			load: function () {
 				var s = window.localStorage.getItem(this.name);
 				if (s && this.isJson) {
 					this.value = JSON.parse(s);
@@ -35,9 +35,9 @@ license that can be found in the LICENSE file.
 					this.value = s;
 				}
 			},
-			save: function() {
-				window.localStorage.setItem(this.name, 
-					this.isJson ? JSON.stringify(this.value) : this.value);
+			save: function () {
+				var item = this.isJson ? JSON.stringify(this.value) : this.value;
+				window.localStorage.setItem(this.name, item);
 			}
 		});
 	</script>

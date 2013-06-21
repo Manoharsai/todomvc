@@ -23,7 +23,7 @@ license that can be found in the LICENSE file.
  *
  * polymer-selector is not styled.	So one needs to use "selected" CSS class
  * to style the selected element.
- * 
+ *
  *		 <style>
  *			 .item.selected {
  *				 background: #eee;
@@ -40,7 +40,7 @@ license that can be found in the LICENSE file.
  */
 /**
  * Fired when an element is selected via tap.
- * 
+ *
  * @event activate
  * @param {Object} inDetail
  *	 @param {Object} inDetail.item the selected element
@@ -92,7 +92,7 @@ license that can be found in the LICENSE file.
 			valueattr: 'name',
 			/**
 			 * Specifies the CSS class to be used to add to the selected element.
-			 * 
+			 *
 			 * @attribute selectedClass
 			 * @type string
 			 * @default 'selected'
@@ -100,13 +100,13 @@ license that can be found in the LICENSE file.
 			selectedClass: 'selected',
 			/**
 			 * Returns the model associated with the selected element.
-			 * 
+			 *
 			 * @attribute selectedModel
 			 * @type Object
 			 * @default null
 			 */
 			selectedModel: null,
-			ready: function() {
+			ready: function () {
 				this.setAttribute('touch-action', 'none');
 			},
 			get items() {
@@ -115,22 +115,24 @@ license that can be found in the LICENSE file.
 			get selection() {
 				return this.$.selection.getSelection();
 			},
-			selectedChanged: function() {
+			selectedChanged: function () {
 				this.valueToSelection(this.selected);
 			},
-			valueToSelection: function(inValue) {
+			valueToSelection: function (inValue) {
 				var item = this.items[this.valueToIndex(inValue)];
+				var template;
 				if (item) {
 					this.$.selection.select(item);
-					var t = item.templateInstance;
-					this.selectedModel = t ? t.model : undefined;
+					template = item.templateInstance;
+					this.selectedModel = template ? template.model : undefined;
 				} else {
 					this.selectedModel = null;
 				}
 			},
-			valueToIndex: function(inValue) {
+			valueToIndex: function (inValue) {
 				// find an item with value == inValue and return it's index
-				for (var i=0, items=this.items, c; (c=items[i]); i++) {
+				var i, items, c;
+				for (i = 0, items = this.items, c; (c = items[i]); i++) {
 					if (this.valueForNode(c) == inValue) {
 						return i;
 					}
@@ -138,30 +140,31 @@ license that can be found in the LICENSE file.
 				// if no item found, the value itself is probably the index
 				return inValue;
 			},
-			valueForNode: function(inNode) {
+			valueForNode: function (inNode) {
 				return inNode[this.valueattr] || inNode.getAttribute(this.valueattr);
 			},
 			// events fired from <polymer-selection> object
-			selectionSelect: function(inEvent, inInfo) {
+			selectionSelect: function (inEvent, inInfo) {
 				if (inInfo.item && this.selectedClass) {
 					inInfo.item.classList.toggle(this.selectedClass, inInfo.isSelected);
 				}
 			},
 			// event fired from host
-			activateHandler: function(inEvent) {
+			activateHandler: function (inEvent) {
 				if (this.notap) {
 					return;
 				}
 				var items = this.items;
 				var i = Polymer.findDistributedTarget(inEvent.target, items);
+				var selected;
 				if (i >= 0) {
-					var selected = this.valueForNode(items[i]) || i;
+					selected = this.valueForNode(items[i]) || i;
 					if (this.multi) {
 						this.valueToSelection(selected);
 					} else {
 						this.selected = selected;
 					}
-					this.asend('activate', {item: items[i]});
+					this.asend('activate', { item: items[i] });
 				}
 			}
 		});

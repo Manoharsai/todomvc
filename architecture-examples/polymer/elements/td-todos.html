@@ -45,7 +45,7 @@
 		var ENTER_KEY = 13;
 		var ESC_KEY = 27;
 		Polymer.register(this, {
-			keyAction: function(e, detail, sender) {
+			keyAction: function (e, detail, sender) {
 				switch (e.keyCode) {
 					case ENTER_KEY:
 						this.$.model.newItem(sender.value);
@@ -56,19 +56,19 @@
 						break;
 				}
 			},
-			modelChangedAction: function() {
+ 			modelChangedAction: function () {
 				this.$.storage.save();
 			},
-			itemChangedAction: function() {
+			itemChangedAction: function () {
 				this.$.model.itemsChanged();
 			},
-			destroyItemAction: function(e, detail) {
+			destroyItemAction: function (e, detail) {
 				this.$.model.destroyItem(detail);
 			},
-			toggleAllCompletedAction: function(e, detail, sender) {
+			toggleAllCompletedAction: function (e, detail, sender) {
 				this.$.model.setItemsCompleted(sender.checked);
 			},
-			clearCompletedAction: function() {
+			clearCompletedAction: function () {
 				this.$.model.clearItems();
 			}
 		});
